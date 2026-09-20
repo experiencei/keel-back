@@ -18,11 +18,18 @@ import { accountRouter } from './routes/account.js';
 
 const app = express();
 
-app.use(cors({
-  origin: ['https://keel-rose-ten.vercel.app/', 'http://localhost:3000'],
-  credentials: true,
-}));
+import cors from 'cors';
 
+const allowedOrigins = [
+  'https://keel-rose-ten.vercel.app',
+  'http://localhost:3000',
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(morgan('dev'));
 
 app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhooksRouter);
