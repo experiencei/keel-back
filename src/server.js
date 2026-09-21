@@ -46,8 +46,8 @@ app.use('/api/wallet', requireAuth, walletRouter);
 app.use('/api/invoices', requireAuth, invoicesRouter);
 app.use('/api/billing', requireAuth, billingRouter);
 app.use('/api/admin/accounts', accountsRouter); 
-app.use((err, _req, res, _next) => {
-  console.error(err);
+app.use((err, req, res, next) => {
+  console.error(`${req.method} ${req.path} failed:`, err);
   res.status(500).json({ error: 'internal server error' });
 });
 
